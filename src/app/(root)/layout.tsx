@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Calligraffitti } from 'next/font/google'
 import "./globals.css";
+import { GlobalStateProvider } from "../context/globalState";
 
 const indieFlowe = Calligraffitti({
   weight: '400',
@@ -22,7 +23,9 @@ export default function RootLayout({
       <body
         className={`${indieFlowe.className}`}
       >
-        {children}
+        <GlobalStateProvider>
+          {children}
+        </GlobalStateProvider>
       </body>
     </html>
   );

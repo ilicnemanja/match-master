@@ -5,15 +5,18 @@ import { useRouter } from "next/navigation";
 
 // Components
 import Button from "./Button";
-import { GameSettingsData } from "./GameSettings";
+import { GlobalStateContext } from "../context/globalState";
+import { useContext } from "react";
 
-// Interfaces
-interface ButtonStartTheGameProps {
+interface GameSettingsProps {
   isSolo: boolean;
-  data: GameSettingsData;
 }
 
-export default function ButtonStartTheGame({ isSolo, data }: ButtonStartTheGameProps) {
+export default function ButtonStartTheGame({ isSolo }: GameSettingsProps) {
+
+  // get the data from context
+  const { state } = useContext(GlobalStateContext); // Get the state from the context
+  const data = state.gameSettings;
 
   const router = useRouter();
 
@@ -23,8 +26,8 @@ export default function ButtonStartTheGame({ isSolo, data }: ButtonStartTheGameP
 
   const onGameStart = () => {
     console.log("Game Started with data:", data);
-    console.log("Game Type:", isSolo ? "Solo" : "Friendly");
-    // router.push("/gameplay");
+    console.log("Game Type:", !isSolo ? "Friendly" : "Solo");
+    router.push("/game/gameplay");
   }
 
   return (

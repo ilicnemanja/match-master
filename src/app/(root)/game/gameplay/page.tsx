@@ -1,6 +1,6 @@
 "use client";
 
-import Card from "@/app/components/Card";
+import GameCards from "@/app/components/GameCards";
 // Components
 // import { GlobalStateContext } from "@/app/context/globalState";
 // import { useContext } from "react";
@@ -15,18 +15,9 @@ export default function Page() {
   // const flippedCards = data.cards.filter((card) => card.isFlipped);
 
   return (
-    <div className="grid grid-cols-5 gap-5">
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+    <div>
+      {/* Generate Card components based on cardType, difficulty */}
+      <GameCards cardType="Animals" />
     </div>
   );
 }

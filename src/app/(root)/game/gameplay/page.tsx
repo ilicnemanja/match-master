@@ -1,23 +1,28 @@
 "use client";
 
-import GameCards from "@/app/components/GameCards";
 // Components
-// import { GlobalStateContext } from "@/app/context/globalState";
-// import { useContext } from "react";
+import { GlobalStateContext } from "@/app/context/globalState";
+import { Suspense, useContext } from "react";
+
+// Constants
+import { GAME_SETTINGS } from "@/app/constants/game-settings";
+import GameSetup from "@/app/components/GameSetup";
 
 export default function Page() {
   // get the data from context
-  // const { state } = useContext(GlobalStateContext); // Get the state from the context
+  const { state } = useContext(GlobalStateContext); // Get the state from the context
 
-  // const data = state.gameSettings;
+  // Ensure contextData is available
+  const contextData = state?.gameSettings;
 
-  // check how many cards are flipped in the game, 2 cards are flipped at a time
-  // const flippedCards = data.cards.filter((card) => card.isFlipped);
+  // Safe access to game settings
+  const cardType = GAME_SETTINGS.cardType.find(
+    (item) => item.id === contextData?.cardType
+  )?.type;
 
   return (
-    <div>
-      {/* Generate Card components based on cardType, difficulty */}
-      <GameCards cardType="Animals" />
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <GameSetup cardType={cardType} />
+    </Suspense>
   );
 }

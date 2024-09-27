@@ -10,6 +10,8 @@ interface GameCardsProps {
 
 export default function GameCards({ cardType }: GameCardsProps) {
 
+    console.log('GameCards component rendered, cardType:', cardType);
+
     const { state, dispatch } = useContext(GlobalStateContext);
 
     // create a unique cards array
@@ -56,14 +58,26 @@ export default function GameCards({ cardType }: GameCardsProps) {
     // Filter cards based on the cardType prop
     const filteredCards = state.cardsInfo.cards.filter(card => card.cardType === cardType);
 
+    const shuffleArray = (array: ICard[]) => {
+        // Fisher-Yates shuffle algorithm
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+        }
+        return array;
+    };
+    
     const generateCards = () => {
-        return filteredCards.map((card: ICard) => (
+        const shuffledCards = shuffleArray([...filteredCards]); // Shuffle the cards array
+        return shuffledCards.map((card: ICard) => (
             <Card key={Math.random() * 1000} {...card} />
         ));
     };
+    
+    
 
     return (
-        <div className="grid grid-cols-5 gap-5">
+        <div className="grid grid-cols-5 gap-5 place-items-center">
             {generateCards()}
         </div>
     );

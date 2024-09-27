@@ -88,7 +88,7 @@ export default function Card({ id, ...props }: CardProps) {
               cards: resetCards,
             },
           });
-        }, 2000);
+        }, 1400);
       }
     }
   }, [flipping]);
@@ -102,7 +102,7 @@ export default function Card({ id, ...props }: CardProps) {
       <div className={`card ${selectedCard?.isFlipped ? "flipped" : ""}`}>
         <div className="front">CARD</div>
         <div className="back">
-          <Image className="w-full h-full" width={100} height={100} src={`${props.image}`} alt={props.name} />
+          <Image className="w-full h-full rounded-[4px]" width={100} height={100} src={`${props.image}`} alt={props.name} />
         </div>
       </div>
     </div>
